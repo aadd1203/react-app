@@ -1,26 +1,33 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import { Box, FormControl, InputLabel, ListItemText, MenuItem, Select, Typography, Radio } from '@mui/material';
-// const Filters = styled('div')(({ theme }) => ({
-//     borderRadius: '6px',
-//     background: ' #FCFCFC',
-//     display: "flex",
-//     flexDirection: 'row',
-//     columnGap: 8,
-//     flexGrow: 1,
-//     alignItems: "center",
-//     justifyContent: 'center',
-//     '&:hover': {
-//         backgroundColor: '#ffffffb5',
-//     },
-//     marginLeft: 0,
-//     width: '100%',
-//     [theme.breakpoints.up('sm')]: {
-//         // marginLeft: theme.spacing(1),
-//         width: '100%',
-//     },
-// }));
+import { Box, FormControl, InputLabel, ListItemText, MenuItem, Select, Typography, Radio, InputBase } from '@mui/material';
 
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+    '& .MuiInputBase-input': {
+      borderRadius: 4,
+      position: 'relative',
+      backgroundColor: theme.palette.background.paper,
+      border: '1px solid #767676',
+      fontSize: 16,
+      marginTop: '8px',
+      padding: '10px 26px 10px 12px',
+      transition: theme.transitions.create(['border-color',]),
+      // Use the system font instead of the default Roboto font.
+      fontFamily: [
+        'Univers Next for HSBC'
+      ].join(','),
+      '&:focus': {
+        borderRadius: 4,
+        borderColor: '#767676',
+        // boxShadow: '0 0 0 0.2rem #767676',
+      },
+    },
+  }));
+  
+
+const DropdownIcon = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000" {...props}><path d="M0 0h24v24H0z" fill="none" /><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z" /></svg>
+);
 
 
 
@@ -28,7 +35,7 @@ export default function Dropdown(props) {
     const { label, columns, judColumnValue, handleChangeColumn, filters, judFilterValue, handleChangeFilter } = props;
     return (
         <Box sx={{
-             flexGrow: 1, display: 'flex',
+            flexGrow: 1, display: 'flex',
             flexDirection: 'column', rowGap: 1
         }}>
             <Typography sx={{
@@ -40,7 +47,7 @@ export default function Dropdown(props) {
                 lineHeight: '24px'
             }}>{label}</Typography>
             <Box sx={{
-               flexGrow: 0, display: 'flex',
+                flexGrow: 0, display: 'flex',
                 flexDirection: 'row', columnGap: 1
             }}>
                 <FormControl style={{ width: '161px' }} variant="outlined">
@@ -64,9 +71,24 @@ export default function Dropdown(props) {
                         value={judColumnValue}
                         renderValue={() => ''}
                         onChange={handleChangeColumn}
+                        IconComponent={DropdownIcon}
+                        MenuProps={{
+                            sx: {
+                                "&& .Mui-selected": {
+                                    backgroundColor: 'transparent'
+                                  }
+                            },
+                            PaperProps: {
+                              sx: {
+                                border: '1px solid',
+                              },
+                            },
+                          }}
                         sx={{
                             backgroundColor: '#FCFCFC',
+                            // border: '1px solid',
                         }}
+                        input={<BootstrapInput />}
                     >
                         {columns.map((e) => (
                             <MenuItem key={e.key} value={e.key}>
@@ -102,9 +124,24 @@ export default function Dropdown(props) {
                         value={judFilterValue}
                         renderValue={() => ''}
                         onChange={handleChangeFilter}
+                        IconComponent={DropdownIcon}
+                        MenuProps={{
+                            sx: {
+                                "&& .Mui-selected": {
+                                    backgroundColor: 'transparent'
+                                  }
+                            },
+                            PaperProps: {
+                              sx: {
+                                border: '1px solid',
+                              },
+                            },
+                          }}
                         sx={{
                             backgroundColor: '#FCFCFC',
+                            // border: '1px solid',
                         }}
+                        input={<BootstrapInput />}
                     >
                         {filters.map((e) => (
                             <MenuItem key={e.key} value={e.key}>
